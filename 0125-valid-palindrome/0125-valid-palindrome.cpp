@@ -3,6 +3,7 @@ public:
     bool isPalindrome(string s) {
         int l = 0;
         int size = s.size();
+        
         int k = size-1;
         while(l<k){
             while(!isalnum(s[l]) && l<k){
