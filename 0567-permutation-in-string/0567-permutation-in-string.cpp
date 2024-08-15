@@ -21,10 +21,11 @@ public:
             right++;
             
             if(right!=size2){
-                v2[s2[right] - 'a']++;       
+                v2[s2[right] - 'a']++;   
+                v2[s2[left] - 'a']--;
+                left++;
             }
-            v2[s2[left] - 'a']--;
-            left++;
+            
             
         }
         return false;
