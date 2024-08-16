@@ -24,7 +24,11 @@ public:
     }
     
     int getMin() {
-        return min_st.top();
+        if(min_st.empty()){
+            return st.top();
+        }else{
+            return min_st.top();
+        }
     }
 };
 
