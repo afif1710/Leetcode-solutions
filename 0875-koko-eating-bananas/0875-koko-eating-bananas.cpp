@@ -8,9 +8,9 @@ public:
             int mid = (l+r)/2;
             long long int hour = 0;
             for(int i = 0; i<n ; i++){
-                //int tmp = ceil(static_cast<double>(piles[i])/h);
-                //hour+=tmp;
-                hour += ceil(static_cast<double>(piles[i])/mid);
+                int tmp = ceil(static_cast<double>(piles[i])/mid);
+                hour+=tmp;
+                //hour += ceil(static_cast<double>(piles[i])/mid);
             }
             
             if(hour<=h){
