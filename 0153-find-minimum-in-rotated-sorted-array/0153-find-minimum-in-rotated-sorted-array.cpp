@@ -15,9 +15,6 @@ public:
             }else if(nums[m]<=nums[r]){
                 res = min(res, nums[m]);
                 r = m-1;
-            }else{
-                res = min(res, nums[m]);
-                break;
             }
         }
         return res;
