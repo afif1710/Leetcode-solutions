@@ -11,9 +11,9 @@
 class Solution {
 public:
     
-    ListNode* revList(ListNode* h){
+    ListNode* revList(ListNode* head){
         ListNode* prev = NULL;
-        ListNode* curr = h;
+        ListNode* curr = head;
         ListNode* nxt = NULL;
         while(curr){
             nxt = curr->next;
