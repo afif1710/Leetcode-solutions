@@ -17,8 +17,8 @@ public:
         if(!head->next){
             return head;
         }
-        ListNode* small = new ListNode(0);
-        ListNode* large = new ListNode(0);
+        ListNode* small = new ListNode();
+        ListNode* large = new ListNode();
         
         ListNode* smlptr = small;
         ListNode* lrgptr = large;
