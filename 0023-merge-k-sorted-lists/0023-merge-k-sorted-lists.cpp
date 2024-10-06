@@ -53,8 +53,8 @@ public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         int s = 0;
         int e = lists.size()-1;
-        ListNode* ans = partitionLists(s, e, lists);
-        return ans;
+        return partitionLists(s, e, lists);
+        
         
     }
 };
