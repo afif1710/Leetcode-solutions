@@ -37,12 +37,12 @@ public:
         int mid = (s+e)/2;
         if(s == e){
             return lists[s];
-        }else if(s>e){
-            return NULL;
         }
-        else{
+        else if(s<e){
             li1 = partitionLists(s, mid, lists);
             li2 = partitionLists(mid+1, e, lists);
+        }else{
+            return NULL;
         }
         
         return mergeList(li1, li2);
