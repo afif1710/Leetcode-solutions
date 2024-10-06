@@ -40,10 +40,10 @@ public:
         }else if(s>e){
             return NULL;
         }
-        
-        li1 = partitionLists(s, mid, lists);
-        li2 = partitionLists(mid+1, e, lists);
-
+        else{
+            li1 = partitionLists(s, mid, lists);
+            li2 = partitionLists(mid+1, e, lists);
+        }
         
         return mergeList(li1, li2);
     }
