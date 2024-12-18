@@ -18,13 +18,14 @@ public:
         }else if(!list1 && !list2){
             return NULL;
         }
+        ListNode* res = NULL;
         if(list1->val <= list2->val){
-            list1->next = mergeTwoLists(list1->next, list2);
-            return list1;
+            res = list1;
+            res->next = mergeTwoLists(list1->next, list2);
         }else{
-            list2->next = mergeTwoLists(list2->next, list1);
-            return list2;
-        }
-        
+            res = list2;
+            res->next = mergeTwoLists(list2->next, list1);
+        }  
+        return res;
     }
 };
