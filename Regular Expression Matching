@@ -1,0 +1,34 @@
+class Solution {
+public:
+
+
+    int t[21][21];
+
+    bool solve(int i, int j, string s, string p){
+        if(j == p.length()){
+            return (i == s.length());
+        }
+        if(t[i][j] != -1){
+            return t[i][j];
+        }
+        bool is_first_char_matched = false;
+        if(i<s.length() && (p[j] == s[i] || p[j] == '.')){
+            is_first_char_matched = true;
+        }
+
+        if(j+1 < p.length() && p[j+1] == '*'){
+            bool not_take = solve(i, j+2, s, p);
+            bool take     = is_first_char_matched && solve(i+1, j, s, p);
+
+            return (t[i][j] = not_take || take); 
+        }
+
+        return t[i][j]  = is_first_char_matched && solve(i+1, j+1, s, p);
+
+    }
+    bool isMatch(string s, string p) {
+        memset(t, -1, sizeof(t));
+        int i = 0, j = 0;
+        return solve(i, j, s, p);
+    }
+};
