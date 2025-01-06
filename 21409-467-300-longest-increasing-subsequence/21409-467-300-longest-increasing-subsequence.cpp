@@ -1,30 +1,23 @@
 class Solution {
 public:
-    int t[2501][2501];
-    int solve(vector<int>& nums, int i, int p){
-        int n = nums.size();
-        int take = 0, skip = 0;
-
-        if(i>=n){
-            return 0;
-        }
-        if(p>-1 && t[i][p] != -1){
-            return t[i][p];
-        }
-        if(p == -1 || nums[p] < nums[i]){
-            take = 1+solve(nums, i+1, i);
-        }
-        skip = solve(nums, i+1, p);
-        if(p > -1){
-            t[i][p] = max(take, skip);
-        }
-        return max(take, skip);
-    }
     int lengthOfLIS(vector<int>& nums) {
-        memset(t, -1, sizeof(t));
-        //int p = -1;
-        //int i = 0;
-        
-        return solve(nums, 0,-1);
+        int n = nums.size();
+        vector<int> t(n, 1);
+        int maxLis = 0;
+        int flag = 0;
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<i; j++){
+                if(nums[j] < nums[i]){
+                    t[i] = max(t[i], t[j] + 1);
+                    maxLis = max(maxLis, t[i]);
+                    flag = 1;
+                }
+            }
+        }
+        if(flag != 0){
+            return maxLis;
+        }else{
+            return 1;
+        }
     }
 };
