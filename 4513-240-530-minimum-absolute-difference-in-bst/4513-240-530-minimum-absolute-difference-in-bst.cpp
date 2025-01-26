@@ -20,7 +20,7 @@ public:
         vc.push_back(root->val);
         inOrder(root->right, vc);
 
-    }
+    } 
 
     int getMinimumDifference(TreeNode* root) {
         vector<int>vc;
