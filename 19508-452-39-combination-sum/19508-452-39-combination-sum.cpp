@@ -11,10 +11,13 @@ public:
         if(idx>=n || target < 0){
             return ;
         }
+        // **Include the current element**
         tmp.push_back(candidates[idx]);
-        solve(candidates, target - candidates[idx], tmp, idx);
-        tmp.pop_back();
-        solve(candidates, target, tmp, idx+1);
+        solve(candidates, target - candidates[idx], tmp, idx); // Stay at the same index
+        tmp.pop_back();         //Backtrack
+        
+        // Exclude the current element , hence target isn't changed
+        solve(candidates, target, tmp, idx+1); 
 
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
