@@ -1,0 +1,32 @@
+class Solution {
+public:
+    unordered_set<string> st;
+    unordered_map<string, vector<string>> mp;
+    vector<string> solve(string &s){
+        if(s.empty()){
+            return {""};
+        }
+        if(mp.count(s)){
+            return mp[s];
+        }
+        vector<string> res;
+        for(int l = 1; l<=s.size(); l++){
+            string currWord = s.substr(0, l);
+            if(st.count(currWord)){
+                string Remained = s.substr(l);
+                vector<string> result = solve(Remained);
+                for(string &w: result){
+                    string toAdd = currWord + (w.empty() ? "" : " ") + w;
+                    res.push_back(toAdd);
+                }
+            }
+        }
+        return mp[s] = res;
+    }
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        for(auto &word: wordDict){
+            st.insert(word);
+        }
+        return solve(s);
+    }
+};
