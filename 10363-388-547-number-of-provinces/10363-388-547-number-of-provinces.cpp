@@ -1,3 +1,5 @@
+// By using the given parameter of isConnected 2D vector 
+
 class Solution {
 public:
     int n;
