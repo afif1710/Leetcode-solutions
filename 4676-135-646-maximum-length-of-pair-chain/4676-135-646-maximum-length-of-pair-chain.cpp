@@ -1,5 +1,8 @@
 class Solution {
 public:
+    // This is a variation of Longest Increasing Subsequence problem with extra benefit of letting us sort at first as it says we can 
+    // take in any order
+
     int n;
     int dp[1001][1001];
     int solve(int prev, int curr, vector<vector<int>> &pairs){
