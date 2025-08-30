@@ -1,15 +1,18 @@
 class Solution {
 public:
+    // Variant of LIS
+    // Recursion + Memoization , O(n2 ⋅ L), L = max length of a string . without dp , time comp. = O(2^n ⋅ L)
+    
     int n;
-    int t[1001][1001];
-    bool isPred(string &a, string &b){
+    int dp[1001][1001];
+    bool isPred(string &a, string &b){      //Check if a is predecessor of b
         int x = a.length();
         int y = b.length();
-        if(x>=y || (y-x != 1)){
+        int i = 0, j = 0;
+        if(x >= y || y - x != 1){       // length gap shouldn't be more than 1 and b must > a
             return false;
         }
-        int i = 0, j = 0;
-        while(i<x && j<y){
+        while(i < x && j < y){
             if(a[i] == b[j]){
                 i++;
             }
@@ -17,33 +20,32 @@ public:
         }
         return (i == x);
     }
-    int solve(vector<string>& words, int i, int p){
-        if(i>=n){
+    int solve(int prev, int curr, vector<string> &words){        //LIS code
+        if(curr >= n){
             return 0;
         }
-        if(p>-1 && t[i][p] != -1){
-            return t[i][p];
+        // take, skip
+        if(prev != -1 && dp[prev][curr] != -1){
+            return dp[prev][curr];
         }
         int take = 0, skip = 0;
-        if(p == -1 || isPred(words[p], words[i])){
-            take = 1 + solve(words, i+1, i);
+        if(prev == -1 || isPred(words[prev], words[curr])){
+            take = 1 + solve(curr, curr + 1, words);
         }
-        skip = solve(words, i+1, p);
-        if(p > -1){
-            t[i][p] = max(take, skip);
+        skip = solve(prev, curr + 1, words);
+        if(prev != -1){
+            dp[prev][curr] = max(take, skip);
         }
         return max(take, skip);
     }
 
-    static bool comparator(string &w1, string &w2){
-        return w1.length() < w2.length();
+    static bool comparator(string &s1, string &s2){     //Sorting based on length of all strings  , O(n logn), constant time comparator
+        return s1.length() < s2.length();
     }
-
     int longestStrChain(vector<string>& words) {
-        memset(t, -1, sizeof(t));
+        memset(dp, -1, sizeof(dp));
         n = words.size();
-
         sort(words.begin(), words.end(), comparator);
-        return solve(words, 0, -1);
+        return solve(-1, 0, words);
     }
 };
