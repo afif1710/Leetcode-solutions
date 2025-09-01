@@ -23,16 +23,17 @@ public:
         }
         
         Node* curr = head;
-        // Creating a new duplicate Node right after each
+        // Creating a new duplicate Node right after each Node
         while(curr){
-            Node* nxt = curr->next;
-            curr->next = new Node(curr->val);
-            curr->next->next = nxt;
-            curr = nxt;
+            Node* nxt = curr->next;                  //B
+            curr->next = new Node(curr->val);        //A -> x -> B, inseting new node between A and B
+            curr->next->next = nxt;                  // A -> B
+            curr = nxt;                              // moving curr from A to B
         }
+   
         
         curr = head;
-        // Assigning random pointer
+        // Assigning random pointers to the newly created nodes
         while(curr){
             if(curr->random == NULL){
                 curr->next->random = NULL;
@@ -45,7 +46,7 @@ public:
         curr = head;
         Node* newhead = head->next;
         Node* newcurr = newhead;
-        
+        // Connecting the given Nodes to each other and also the newly created Nodes to each other
         while(curr && newcurr){
             if(curr->next == NULL){
                 curr->next = NULL;
