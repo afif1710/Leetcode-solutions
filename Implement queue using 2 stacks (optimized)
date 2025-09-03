@@ -40,8 +40,7 @@ public:
         }else{
             return peekElement;
         }
-        
-        return st2.top();
+ 
         
     }
     
