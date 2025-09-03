@@ -35,13 +35,10 @@ public:
     }
     
     int peek() {
-        if(!st2.empty()){
-            return st2.top();
-        }else{
+        if (st2.empty()) {
             return peekElement;
         }
- 
-        
+        return st2.top();
     }
     
     bool empty() {
