@@ -8,7 +8,7 @@ public:
         isPrime[1] = false;
         for(int i = 2; i*i <= n; i++){
             if(isPrime[i]){
-                for(int j = 2; j*i <= n; j++){            //Sieve of Eratosthenes
+                for(int j = 2; j*i <= n; j++){      //Sieve of Eratosthenes
                     isPrime[j*i] = false;
                 }
             }
@@ -17,7 +17,7 @@ public:
         int ans = INT_MAX, count_primes = 0, tmp = -1;
         for(int i = left; i<=right; i++){
             if(isPrime[i]){
-                count_primes++;                //If number of primes between the range in less than 2 then we return {-1, -1}
+                count_primes++;  //If number of primes between the range in less than 2 then we return {-1, -1}
             }
         }
         if(count_primes < 2){
@@ -25,8 +25,12 @@ public:
         }else{
             for(int i = left; i<=right; i++){
                 if(isPrime[i]){
-                    if(abs(i - tmp) < ans && tmp != -1){
-                        ans = abs(i - tmp);
+                    if((i - tmp) < ans && tmp != -1){
+                        ans = (i - tmp);
+                        if(ans <= 2){
+                            res = {tmp, i};     //Try for early return since prime diff can't be < 2 except [2,3]
+                            return res;
+                        }
                         res = {tmp, i};
                     }
                     tmp = i;
