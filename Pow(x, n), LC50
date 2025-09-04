@@ -1,0 +1,26 @@
+class Solution {
+public:
+    long double ans;
+    long double solve(double x, long int n){        //long bcoz it can store bigger values than the given constraints of n
+        if(n == 0){
+            return 1;          //something to the power 0 = 1, hence return 1
+        }
+        if(n < 0){
+            ans = solve(1/x, -n); //-n bcoz this block runs when n < 0 and 2^-2 = (1/2)^ 2
+        }
+        
+        if(n%2 == 0){
+            ans = solve(x*x, n/2);          //2^n = (2*2)^(n/2), for even power
+        }else if(n%2 == 1){
+            ans  = x * solve(x*x, (n-1)/2);      //2^n = 2 * (2*2)^((n-1)/2), for odd power
+        }
+        
+        return ans;
+    }
+
+    double myPow(double x, long n) {
+    
+        return solve(x, n);
+        
+    }
+};
