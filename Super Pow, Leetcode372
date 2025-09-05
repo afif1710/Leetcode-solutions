@@ -26,7 +26,7 @@ public:
             res = (res * 10 + b[i]) % 1140;  //Mod na korle signed integer overflow hobe as a is 'b' huge value
         }
         if(res == 0){
-            res = 1140;     //only case when b = [1,1,4,0], res will become 0, hence change its value to 1140;
+            res = 1140;     //only case when b = [1,1,4,0], or multiple of 1140, res will become 0, hence change its value to 1140;
         }
  
         return solve(a, res);
