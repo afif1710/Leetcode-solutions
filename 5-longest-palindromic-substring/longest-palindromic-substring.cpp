@@ -26,7 +26,6 @@ public:
                 }
             }
         }
-        string ans = s.substr(start, maxlen);
-        return ans;
+        return s.substr(start, maxlen);
     }
 };
