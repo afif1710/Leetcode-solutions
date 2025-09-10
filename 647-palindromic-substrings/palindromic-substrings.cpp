@@ -1,15 +1,18 @@
 class Solution {
 public:
 
-    
+    int dp[1001][1001];
     bool isPalindrome(string &s, int i, int j){
         if(i > j){
-            return true;
+            return 1;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
         }
         if(s[i] == s[j]){
-            return isPalindrome(s, i+1, j-1);
+            return dp[i][j] = isPalindrome(s, i+1, j-1);
         }
-        return false;
+        return dp[i][j] = 0;
     }
     int solve(string &s, int i, int j, int n){
         int cnt = 0;
@@ -24,6 +27,7 @@ public:
     }
     int countSubstrings(string s) {
         int n = s.size();
+        memset(dp, -1, sizeof(dp));
         return solve(s, 0, 0, n);
     }
 };
