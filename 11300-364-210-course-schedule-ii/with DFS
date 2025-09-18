@@ -1,0 +1,68 @@
+class Solution {
+public:
+    int n;
+
+    bool isCycleDFS(unordered_map<int, vector<int>> &adj, vector<bool> &visit, vector<bool> &inrec, int u){      //To check cycle in the graph
+        visit[u] = true;
+        inrec[u] = true;
+        for(int &v: adj[u]){
+            if(visit[v] && inrec[v]){
+                return true;
+            }
+            if(!visit[v] && isCycleDFS(adj, visit, inrec, v)){
+                return true;
+            }
+        }
+        inrec[u] = false;
+        return false;
+    }
+
+    void DFS(unordered_map<int, vector<int>> &adj, vector<bool> &visited, stack<int> &st, int u){    //Topological Sort
+        visited[u] = true;
+
+        for(int &v: adj[u]){
+            if(!visited[v]){
+                DFS(adj, visited, st, v);
+            }
+        }
+        st.push(u);
+    }
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> courses;
+        n = prerequisites.size();
+  
+        unordered_map<int, vector<int>> adj;
+
+        for(int u = 0; u<n; u++){              // Creating the Graph as unordered map
+            int a = prerequisites[u][0];
+            int b = prerequisites[u][1];
+
+            adj[b].push_back(a);
+            
+        }
+        int fg = 0;
+        vector<bool> visit(numCourses, false);
+        vector<bool> inrec(numCourses, false);
+        for(int i = 0 ; i<numCourses; i++){
+            if(!visit[i] && isCycleDFS(adj, visit, inrec, i)){      //To check cycle
+                fg = 1;
+            }
+        }
+        stack<int> st;
+        vector<bool> visited(numCourses, false);
+        for(int i = 0; i<numCourses ; i++){
+            if(!visited[i]){
+                DFS(adj, visited, st, i);
+            }
+        }
+
+        while(!st.empty()){
+            courses.push_back(st.top());
+            st.pop();
+        }
+        if(fg == 1){    //Means there is a cycle
+            return {};
+        }
+        return courses;
+    }
+};
