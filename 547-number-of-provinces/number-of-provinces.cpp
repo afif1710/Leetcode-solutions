@@ -12,8 +12,8 @@ public:
     }
     int findCircleNum(vector<vector<int>>& isConnected) {
         n = isConnected.size();
-        vector<bool> visited(n+1, false);
-        visited[0] = NULL;
+        vector<bool> visited(n, false);
+        
         int cnt = 0;
         for(int i = 0 ; i<n ; i++){
             if(!visited[i]){
