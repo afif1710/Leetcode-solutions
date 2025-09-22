@@ -2,7 +2,7 @@ class Solution {
 public:
     int kthFactor(int n, int k) {
         int ans;
-        for(int i = 1; i*i < n; i++){
+        for(int i = 1; i*i < n; i++){    // <= hobe na bcoz input 4 and 4 hoile same number 2 bar count hoye 2 bar k-- hobe
             
             if(n%i == 0){
                 k--;
