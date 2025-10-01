@@ -19,7 +19,9 @@ public:
             pq.pop();
             int x = p.first;
             int y = p.second;
-
+            if(x == n-1 && y == m-1){
+                return diff;
+            }
             for(auto &dir: directions){
                 int x_ = x + dir[0];
                 int y_ = y + dir[1];
