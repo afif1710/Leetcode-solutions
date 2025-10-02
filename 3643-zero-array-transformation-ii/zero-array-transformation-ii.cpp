@@ -22,6 +22,7 @@ public:
             diff[i] += diff[i-1];
         }
 
+        //If any value in nums[i] > diff[i], it means we can't make nums a zero array
         for(int i = 0; i < n; i++){
             if(nums[i] > diff[i]){
                 return false;
@@ -45,8 +46,8 @@ public:
     int minZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
         n = nums.size();
         q = queries.size();
-        if(isAllZero(nums)){
-            return 0;
+        if(isAllZero(nums)){        //in case all elements in nums array are zero
+            return 0;               // hence need 0 moves
         }
         // for(int i = 0; i<q; i++){
         //     if(solve(nums, queries, i) == true){            //Can't use this bcoz it checks entire queries array at the worst case
@@ -56,7 +57,7 @@ public:
 
         int l = 0;
         int r = q-1;
-        int res = -1;
+        int res = -1;   //To make sure to return -1 if we can't make the array a zero array
         while(l <= r){
             int mid = l + (r-l) / 2;
             if(solve(nums, queries, mid) == true){
