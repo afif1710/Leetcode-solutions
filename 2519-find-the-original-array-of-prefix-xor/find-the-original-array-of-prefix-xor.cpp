@@ -10,8 +10,8 @@ public:
 
 
         //Alternative
-        
-        vector<int> res(n);
+
+        vector<int> res(n);             //Extra space , O(n)
         res[0] = pref[0];
         for(int i = 1; i < n; i++){
             res[i] = pref[i] ^ pref[i-1];      //XOR
