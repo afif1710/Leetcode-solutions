@@ -15,7 +15,7 @@ public:
 
             // if 1s appear an odd number of times, that bit belongs to the unique number
             if (cntOne % 2 == 1)
-                res |= (1 << k);              // set that bit in the result
+                res = res | (1 << k);              // set that bit in the result
         }
 
         return res; // the number that appears once
