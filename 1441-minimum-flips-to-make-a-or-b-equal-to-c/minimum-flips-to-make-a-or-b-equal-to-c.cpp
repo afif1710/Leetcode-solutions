@@ -8,6 +8,9 @@ public:
                 if((a & 1) == 0 && (b & 1) == 0){
                     flips++;
                 }
+                // else if((a & 1) == 1 && (b & 1) == 1){
+                //     flips++;     // This condition is wrong bcoz in Bitise OR 1 + 1 = 1
+                // }            
             }else if((c & 1) == 0){     //Braces is a must
                 if((a & 1) == 1){
                     flips++;
