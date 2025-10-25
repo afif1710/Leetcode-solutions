@@ -8,7 +8,7 @@ public:
             if(countOneInA == countOneInB){
                 return a < b;
             } 
-            return countOneInA < countOneInB;
+            return countOneInA < countOneInB;      // Returns the number which has less 1 bits 
         };
         sort(arr.begin(), arr.end(), lambda);
 
