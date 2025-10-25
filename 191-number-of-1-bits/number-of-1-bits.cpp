@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int countOneBits(int n){
+    
+    int hammingWeight(int n) {
         int countOfOne = 0;
         for(int i = 1; i<32; i++){
             if((n & 1) == 1){
@@ -9,10 +10,5 @@ public:
             n >>= 1;
         }
         return countOfOne;
-
-    }
-    int hammingWeight(int n) {
-        return countOneBits(n);
-        
     }
 };
