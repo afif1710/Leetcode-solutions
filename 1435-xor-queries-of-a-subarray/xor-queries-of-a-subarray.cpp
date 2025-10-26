@@ -14,8 +14,9 @@ public:
             int endIdx   = query[1];
             int ans;
             if(startIdx == 0){
-                ans = preComputeXOR[endIdx];
+                ans = preComputeXOR[endIdx];    // Return the toal length XOR
             }else{
+                // Else (Xor of right) ^ (Xor till left - 1) gives the (Xor from left to right) 
                 ans = preComputeXOR[endIdx] ^ preComputeXOR[startIdx - 1];
             }
             res.push_back(ans);
