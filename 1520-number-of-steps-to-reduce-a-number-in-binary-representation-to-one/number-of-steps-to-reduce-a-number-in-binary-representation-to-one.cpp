@@ -14,10 +14,9 @@ public:
 
     }
     int numSteps(string s) {
-        int n = s.size() - 1;
         int cnt = 0;
         while(s.size() != 1){
-            n = s.size() - 1;
+            int n = s.size() - 1;
             if(s[n] == '0'){
                 s.pop_back();
                 
