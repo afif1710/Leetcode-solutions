@@ -18,9 +18,9 @@ public:
         // Step 3: Split numbers into two groups based on that differing bit
         for (int num : nums) {
             if (num & complement)
-                grpA ^= num;   // XOR in group A
+                grpA ^= num;   // XOR in group A if Non-Zero
             else
-                grpB ^= num;   // XOR in group B
+                grpB ^= num;   // XOR in group B if Zero
         }
 
         // Step 4: Each group now contains exactly one unique number
