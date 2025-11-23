@@ -1,20 +1,29 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        unordered_map<int, int> mp;
-        int n = nums.size();
+        int Xor = 0;
 
-        for(int i = 0; i<n; i++){
-            mp[nums[i]]++;
+        // Step 1: XOR all numbers → leaves XOR of the two unique numbers
+        for (int num : nums) {
+            Xor ^= num;
         }
-        vector<int> res;
-        for(auto &it: mp){
-            int num = it.first;
-            int freq = it.second;
-            if(freq == 1){
-                res.push_back(num);
-            }
+
+        // Step 2: Extract rightmost set bit of Xor (bit where the two unique numbers differ)
+        unsigned int temp = Xor;
+        int complement = temp & -temp;
+
+
+        int grpA = 0, grpB = 0;
+
+        // Step 3: Split numbers into two groups based on that differing bit
+        for (int num : nums) {
+            if (num & complement)
+                grpA ^= num;   // XOR in group A
+            else
+                grpB ^= num;   // XOR in group B
         }
-        return res;
+
+        // Step 4: Each group now contains exactly one unique number
+        return {grpA, grpB};
     }
 };
