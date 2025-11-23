@@ -10,7 +10,7 @@ public:
 
         // Step 2: Extract rightmost set bit of Xor (bit where the two unique numbers differ)
         unsigned int temp = Xor;
-        int complement = temp & -temp;
+        int complement = temp & -temp;      //Returns right most set bit of temp
 
 
         int grpA = 0, grpB = 0;
