@@ -1,73 +1,76 @@
 class Solution {
 public:
 
-    struct TrieNode {
-        TrieNode* left;   // represents bit 0
-        TrieNode* right;  // represents bit 1
-        TrieNode() : left(NULL), right(NULL) {} // important: initialize pointers
+    struct TrieNode{
+        TrieNode* left;    // represents bit 0
+        TrieNode* right;   // represents bit 1
     };
+    
 
-    // Insert a number into the binary trie (bit-by-bit from MSB → LSB)
-    void insert(TrieNode* root, int &num) {
+    // Insert a number into the binary trie (bitwise from MSB → LSB)
+    void insert(TrieNode* root, int &num){
         TrieNode* crawler = root;
+        for(int i = 31; i>= 0; i--){                   // iterate through all 32 bits
+            int ith_bit = (num>>i) & 1;               // extract the i-th bit of num
 
-        for (int i = 31; i >= 0; i--) {
-            int ith_bit = (num >> i) & 1;  // extract the i-th bit of the number
-
-            if (ith_bit == 1) {            // if bit is 1 → go/create right child
-                if (crawler->right == NULL)
+            if(ith_bit){                              // if bit is 1 → go to right child
+                if(crawler->right == NULL){           // create node if missing
                     crawler->right = new TrieNode();
-                crawler = crawler->right;
-            } else {                       // if bit is 0 → go/create left child
-                if (crawler->left == NULL)
+                }
+                crawler = crawler->right;             // move downward
+            }else{                                     // if bit is 0 → go to left child
+                if(crawler->left == NULL){            // create node if missing
                     crawler->left = new TrieNode();
-                crawler = crawler->left;
+                }
+                crawler = crawler->left;              // move downward
             }
         }
     }
 
-    // Find the maximum XOR for a given number using the trie
-    int findMaxXor(TrieNode* root, int &num) {
+    // Find the maximum XOR value achievable with num by traversing trie
+    int findMaxXor(TrieNode* root, int &num){
         int mx = 0;
         TrieNode* crawl = root;
 
-        for (int i = 31; i >= 0; i--) {
-            int ith_bit = (num >> i) & 1;      // extract bit
+        for(int i = 31; i>= 0 ;i--){                  // check from MSB → LSB
+            int ith_bit = (num>>i) & 1;               // extract i-th bit of num
 
-            // To maximize XOR: try to go OPPOSITE bit if possible
-            if (ith_bit == 1) {
-                if (crawl->left != NULL) {     // opposite of 1 is 0
-                    mx += (1 << i);            // XOR gains a 1 at this bit
+            // To maximize XOR: choose the opposite bit if available
+            if(ith_bit == 1){
+                if(crawl->left != NULL){              // prefer 0 to maximize XOR with 1
+                    mx += pow(2, i);                  // set this bit in result
                     crawl = crawl->left;
-                } else {
-                    crawl = crawl->right;      // no opposite → settle for same bit
+                }else{
+                    crawl = crawl->right;             // fallback: same bit path
                 }
-            } else {                            // bit is 0
-                if (crawl->right != NULL) {     // opposite of 0 is 1
-                    mx += (1 << i);             // XOR gains a 1 at this bit
+            }else{                                     // num's bit is 0
+                if(crawl->right != NULL){             // prefer 1 to maximize XOR
+                    mx += pow(2, i);                  // set this bit in result
                     crawl = crawl->right;
-                } else {
-                    crawl = crawl->left;
+                }else{
+                    crawl = crawl->left;              // fallback
                 }
             }
         }
-        return mx;
+        return mx;                                    // maximum XOR with this num
     }
 
-    // Main function: build trie and compute max XOR pair
     int findMaximumXOR(vector<int>& nums) {
-        TrieNode* root = new TrieNode();        // start with empty trie
+        TrieNode* root = new TrieNode();              // create empty trie root
 
-        // Insert all numbers into trie
-        for (int &num : nums)
+        // Insert all numbers into the trie
+        for(int &num: nums){
             insert(root, num);
+        }
 
         int maxXor = 0;
 
-        // For each number, find best possible XOR match stored in trie
-        for (int &num : nums)
-            maxXor = max(maxXor, findMaxXor(root, num));
+        // For each number, find the maximum XOR achievable with other numbers
+        for(int i = 0; i<nums.size(); i++){
+            int temp = findMaxXor(root, nums[i]);     // find best XOR partner
+            maxXor = max(maxXor, temp);               // update global maximum
+        }
 
-        return maxXor;
+        return maxXor;                                // return final result
     }
 };
