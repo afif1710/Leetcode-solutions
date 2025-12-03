@@ -2,13 +2,11 @@ class Solution {
 public:
     int maxDistinct(string s) {
         string str = s;
-        sort(str.begin(), str.end());
+        unordered_map<char, int> mp;
         int unique = 1;
-        for(int i = 1; i<str.size(); i++){
-            if(str[i] != str[i-1]){
-                unique++;
-            }
+        for(int i = 0; i<str.size(); i++){
+            mp[str[i]]++;
         }
-        return unique;
+        return mp.size();
     }
 };
