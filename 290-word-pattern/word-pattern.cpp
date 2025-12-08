@@ -20,7 +20,7 @@ public:
         }
         for(int i = 0; i<n ; i++){
             if(mp.find(pattern[i]) == mp.end()){
-                for(auto &iterator: mp){
+                for(auto &iterator: mp){    //For input like 'abba' and "dog dog dog dog"
                     if(iterator.second == words[i]){
                         return false;
                     }
