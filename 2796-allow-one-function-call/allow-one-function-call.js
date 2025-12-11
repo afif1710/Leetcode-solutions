@@ -6,9 +6,9 @@ var once = function(fn) {
     let onceFn;
     let cnt = 0;
     return function(...args){
-        onceFn = fn(...args);
         if(cnt < 1){
             cnt++;
+            onceFn = fn(...args);   //Wrote here bcoz fn function needs to be called once
             return onceFn;
         }else{
             return undefined;
