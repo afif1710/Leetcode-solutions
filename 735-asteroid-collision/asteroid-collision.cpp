@@ -1,41 +1,46 @@
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
-        stack<int> st;          // will store surviving asteroids (left -> right order)
-        vector<int> ans;
+        int n = asteroids.size();
+        stack<int> st;            // stack holds surviving asteroids so far
+        vector<int> ans;          // final answer (will be built by popping stack)
 
-        for (int a : asteroids) {
+        for(int i = 0; i<n ; i++){
+            int a = asteroids[i];
 
-            // Case 1: moving right => cannot collide with previous asteroids
+            // If current asteroid moves right (+), it can't collide with anything on its left now
             if (a > 0) {
                 st.push(a);
                 continue;
             }
 
-            // Case 2: moving left => may collide with previous right-movers
-            // Keep destroying smaller right-movers on top.
-            while (!st.empty() && st.top() > 0 && st.top() < -a) {
+            // Current asteroid moves left (-)
+            // Collision is possible only if stack top moves right (st.top() > 0)
+            // Pop smaller right-movers that get destroyed by current left-mover
+            while(!st.empty() && asteroids[i] < 0 && st.top() < abs(asteroids[i]) && st.top() > 0){
                 st.pop();
             }
 
-            // Now decide the fate of 'a' after all possible pops.
-            if (st.empty() || st.top() < 0) {
-                // No right-mover to collide with => 'a' survives
-                st.push(a);
-            } else if (st.top() == -a) {
-                // Equal size => both explode
+            // If sizes are equal (top == |current|), both destroy each other => pop top
+            if(!st.empty() && st.top() == abs(asteroids[i])){
                 st.pop();
+
+            // If stack is empty OR top is also left-moving, then no collision => push current
+            }else if(st.empty() || st.top() < 0){
+                st.push(asteroids[i]);
             }
-            // Else: st.top() > -a (bigger right-mover) => 'a' is destroyed (do nothing)
+
+            // Note: if stack top is a bigger right-mover, current (-) is destroyed => not pushed
         }
 
-        // Stack -> vector (this reverses order)
-        while (!st.empty()) {
+        // Pop survivors from stack into ans (this reverses order)
+        while(!st.empty()){
             ans.push_back(st.top());
             st.pop();
         }
-        reverse(ans.begin(), ans.end());  // restore left-to-right order
 
+        // Reverse to restore left-to-right order
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
